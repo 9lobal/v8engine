@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\1cv8\common\1cestart.exe" DESIGNER /F "C:\Users\Documents\base" /N Администратор /P 111111
