@@ -1,7 +1,7 @@
+#Запуск конфигуратора файловой базы
+"C:\Program Files (x86)\1cv8\common\1cestart.exe" DESIGNER /F "C:\Users\Documents\base" /N Администратор /P 111111
+
 #Сборка epf
 "c:\Program Files (x86)\1cv8\8.3.8.1502\bin\1cv8.exe" DESIGNER /F "d:\tmp\ИБ" /LoadExternalDataProcessorOrReportFromFiles "d:\tmp\ФайлыОбработки\МояОбработка.xml" "d:\tmp\Обработка1.epf"  /Out"d:\tmp\Обработка1_log.txt"
 #Выгрузка конфигурации в файлы - только измененные
 "C:\Program Files (x86)\1cv8\8.3.10.2252\bin\1cv8.exe" DESIGNER /IBName "HRM31_TEST_VTRUSHNIKOV_Local" /WA+ /DumpConfigToFiles "H:\HRM31\Repo" -update /OUT "‪H:\git\log.txt"
-
-#Выполнение фоновых заданий в сеансе - только для БСП
-в параметры запуска добавить параметр РежимОтладки
