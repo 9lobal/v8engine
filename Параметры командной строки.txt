@@ -1,5 +1,14 @@
 #Запуск конфигуратора файловой базы
 "C:\Program Files (x86)\1cv8\common\1cestart.exe" DESIGNER /F "C:\Users\Documents\base" /N Администратор /P 111111
+#Запуск клиента
+"C:\Program Files\1cv81\bin\1cv8.exe" ENTERPRISE /F"D:\1C_base\ZUPRAZR" /N"Админ" /P"12345" 
+"C:\Program Files\1cv81\bin\1cv8.exe" ENTERPRISE /S"server-1C\ZUP" /N"Админ" /P"12345"
+
+#Запуск под пользователем и выполнение внешней обработки
+"C:\Program Files\1cv82\8.2.11.235\bin\1cv8s.exe" ENTERPRISE /F "D:\1C\HRM" /N user /P password /Execute "D:\1C\Внешние_обработки_1С\РаботающиеОбработки\РабочийСтол.epf"
+
+#Запуск со снятием блокировки
+"C:\Program Files\1cv81\bin\1cv8.exe" ENTERPRISE /F"D:\1C\HRM" /N"Иванов И.И." /P"Пароль" /UC 456743
 
 #Сборка epf
 "c:\Program Files (x86)\1cv8\8.3.8.1502\bin\1cv8.exe" DESIGNER /F "d:\tmp\ИБ" /LoadExternalDataProcessorOrReportFromFiles "d:\tmp\ФайлыОбработки\МояОбработка.xml" "d:\tmp\Обработка1.epf"  /Out"d:\tmp\Обработка1_log.txt"
