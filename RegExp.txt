@@ -1,0 +1,15 @@
+#TOP 10 долгих транзакций
+cat rphost*/*.log | grep -P 'SDBL.+Func=CommitTransaction' | gawk -F'-'{print $2}' | sort -rnb | head
+
+#Вывести все SCALL (исходящий клиент-серверный вызов) с полным контекстом
+cat rphost*/*.log | gawk -v RS='[0-9]+:[0-9]+.[0-9]+-' '/SCALL,.*,Context=/{print $0}' | head -n 50
+
+#TOP 10 CALL с максимальной длительностью суммарно
+cat rphost*/*.log |
+grep -P ',CALL,.*Context=' |
+sed -r 's/^.{12}-//;s/CALL.*Context=//;s/,Interface=.*$//' |
+gawk -F',' '{Dur[$2]+=$1;}END{for (i in Dur) print Dur[i] ":" i}' |
+sort -rnb |
+head -n 5
+
+#
