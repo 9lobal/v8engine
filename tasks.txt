@@ -1,0 +1,10 @@
+#2 Занятый объем памяти за вызов
+grep -rE '^.*[33-43]\:(29|59).*,CALL.*Context=' |
+sed -se 's/^.*Context=//g;
+s/,Interface=.*MemoryPeak=/ = /g;
+s/,InBytes=.*$//g' |
+awk -F"=" '{print $2 " = " $1 }' |
+awk -F"=" '{count[$2]+=$1;} END {for(i in count) print count[i] " = " i}' |
+sort -rn
+
+ 
