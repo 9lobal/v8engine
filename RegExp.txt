@@ -12,4 +12,23 @@ gawk -F',' '{Dur[$2]+=$1;}END{for (i in Dur) print Dur[i] ":" i}' |
 sort -rnb |
 head -n 5
 
-#
+#2 Занятый объем памяти за вызов
+// время события приходится на пик графика расхода памяти
+grep -rE '^.*[00-59]\:[00-59].*,CALL.*Context=' |
+sed -se 's/^.*Context=//g;
+s/,Interface=.*MemoryPeak=/ = /g;
+s/,InBytes=.*$//g' |
+awk -F"=" '{print $2 " = " $1 }' |
+awk -F"=" '{count[$2]+=$1;} END {for(i in count) print count[i] " = " i}' |
+sort -rn
+
+#4 DBMSSQL по последней строке контекста
+cat rphost*/*.log | \
+perl -n -e 'if (/^\d\d:\d\d\.\d+/) {$event =~ s/.\n/<line>/g; print $event."\n"; $event = "";} $event .= $_; END{print $event};' | \
+perl -pe 's/\xef\xbb\xbf//g' | \
+grep -P "DBMSSQL.*Context" | \
+perl -pe 's/^\d+:\d+.\d+-//g' | \
+perl -pe 's/,DMMSSQL,.*Context.*<line>[ \t]+/,Context=/g' | \
+perl -pe 's/,DMMSSQL,.*Context=/,Context=/g' | \
+sed 's/<line>//g' | \
+head
