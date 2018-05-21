@@ -28,8 +28,8 @@ perl -n -e 'if (/^\d\d:\d\d\.\d+/) {$event =~ s/.\n/<line>/g; print $event."\n";
 perl -pe 's/\xef\xbb\xbf//g' | \
 grep -P "DBMSSQL.*Context" | \
 perl -pe 's/^\d+:\d+.\d+-//g' | \
-perl -pe 's/,DMMSSQL,.*Context.*<line>[ \t]+/,Context=/g' | \
-perl -pe 's/,DMMSSQL,.*Context=/,Context=/g' | \
+perl -pe 's/,Context.*<line>[ \t]+/,Context=/g' | \
+perl -pe 's/,DBMSSQL,.*Context=/,Context=/g' | \
 sed 's/<line>//g' | \
 head
 
