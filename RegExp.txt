@@ -59,3 +59,16 @@ sort -rnb | \
 sed 's/<line>//g' | > top.txt
 
 #4 DBMSSQL группировка Sql унифицированный + Context
+
+#4 Скрипт MSSQL
+/****** Скрипт для команды SelectTopNRows из среды SSMS  ******/
+SELECT substring(TextData,1,4000) as Query
+      ,sum([CPU]) as CPU
+      ,sum([Duration]) as Duration
+      ,sum([Reads] + [Writes]) as IO
+  FROM [Tracers].[dbo].[_Tst101217]
+  group by
+     substring(TextData,1,4000)
+     order by CPU desc
+
+#7 управляемые блокировки - TOP по длительности + пространство + блокирующие транзакции + контекст
