@@ -58,7 +58,7 @@ awk -F',Sql=' '{sum[$2]+=$1; count[$2]+=1;} END {for(i in sum) {print sum[i] " "
 sort -rnb | \
 sed 's/<line>/\n/g' > top.txt
 
-#4 DBMSSQL группировка Sql унифицированный + Context
+#5 DBMSSQL группировка Sql унифицированный + Context
 cat rphost*/*.log | \
 perl -n -e 'if (/^\d\d:\d\d\.\d+/) {$event =~ s/\n/<line>/g; print $event."\n"; $event = "";} $event .= $_; END{print $event};' | \
 perl -pe 's/\xef\xbb\xbf//g' | \
@@ -75,7 +75,7 @@ uniq | \
 sort | \
 sed 's/<line>/\n/g' > top.txt
 
-#4 Скрипт MSSQL
+#5 Скрипт MSSQL
 /****** Скрипт для команды SelectTopNRows из среды SSMS  ******/
 SELECT substring(TextData,1,4000) as Query
       ,sum([CPU]) as CPU
@@ -86,4 +86,21 @@ SELECT substring(TextData,1,4000) as Query
      substring(TextData,1,4000)
      order by CPU desc
 
-#7 управляемые блокировки - TOP по длительности + пространство + блокирующие транзакции + контекст
+#7 управляемые блокировки - TOP длительность по Regions
+cat rphost*/*.log | \
+perl -n -e 'if (/^\d\d:\d\d\.\d+/) {$event =~ s/.\n/<line>/g; print $event."\n"; $event = "";} $event .= $_; END{print $event};' | \
+perl -pe 's/\xef\xbb\xbf//g' | \
+grep -P ",TLOCK,.*WaitConnections=\d+,Context" | \
+perl -pe 's/^\d+:\d+.\d+-//g' | grep -P 'WaitConnections=\d+' | \
+perl -pe 's/,Locks=.*$//g' | \
+perl -pe 's/,TLOCK,.*Regions=/,Regions=/g' | \
+sed 's/<line>//g' | \
+awk -F',Regions=' '{sum[$2]+=$1; count[$2]+=1;} END {for(i in sum) {printf "sum=%d avg=%d cnt=%d %s\n", sum[i], sum[i]/count[i],count[i],i}}' | \
+sort -rnb | \
+head
+
+#7 разбор TTIMEOUT - поиск по WaitConnections и Regions
+grep -rE 'TLOCK.*connectID=(21|22).*Regions=Reference14.REFLOCK' | \
+perl -pe 's/^.*connectID=/connectID=/g; s/,SessionID=.*,Regions=/,Regions=/g'
+
+#7 разбор TDEADLOCK - пересечение + контекст
