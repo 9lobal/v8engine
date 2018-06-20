@@ -28,3 +28,5 @@
        <property name="All"/>
    </log>
 </config>
+<!--пример создания нагрузочного теста-->
+<!--select DB_ID('exp_training')-->
