@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://v8.1c.ru/v8/tech-log">
+   <log location="C:\logs\excp\1" history="2">
+       <event>
+         <!--eq property="Name" value="TLOCK"/-->
+       </event>
+	   <event>
+         <!--eq property="Name" value="TTIMEOUT"/-->
+       </event>	
+	   <event>
+         <!--eq property="Name" value="TDEADLOCK"/-->
+       </event>
+	   <event>
+         <!--eq property="Name" value="CALL"/-->
+       </event>
+	   <event>
+         <!--eq property="Name" value="DBMSSQL"/-->
+       </event>
+	   <event>
+         <eq property="Name" value="EXCP"/>
+       </event>
+	   <event>
+         <!--eq property="Name" value="SDBL"/-->
+       </event>
+	   <event>
+         <!--eq property="Name" value="TLOCK"/-->
+       </event>
+       <property name="All"/>
+   </log>
+</config>
