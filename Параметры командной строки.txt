@@ -7,6 +7,9 @@
 #Запуск под пользователем и выполнение внешней обработки
 "C:\Program Files\1cv82\8.2.11.235\bin\1cv8s.exe" ENTERPRISE /F "D:\1C\HRM" /N user /P password /Execute "D:\1C\Внешние_обработки_1С\РаботающиеОбработки\РабочийСтол.epf"
 
+#Запуск по имени базы в обычных формах
+"C:\Program Files (x86)\1cv8\common\1cestart.exe" ENTERPRISE /IBName"Base3" /RunModeOrdinaryApplication"
+
 #Запуск со снятием блокировки
 "C:\Program Files\1cv81\bin\1cv8.exe" ENTERPRISE /F"D:\1C\HRM" /N"Иванов И.И." /P"Пароль" /UC 456743
 
