@@ -1,0 +1,11 @@
+## Создать репозиторий
+$ git init
+
+## Добавить файлы в индекс и коммит с комментарием
+$ git add *.c
+$ git add README
+$ git commit -m 'initial project version'
+
+## Клонировать репозиторий
+$ git clone git://github.com/schacon/grit.git
+$ git clone git://github.com/schacon/grit.git mygrit
