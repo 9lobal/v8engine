@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns="http://v8.1c.ru/v8/tech-log">
+   <dump location="C:\1C_Info\Dumps" create="1" type="2"/>
    <log location="C:\logs\excp\1" history="2">
        <event>
          <!--eq property="Name" value="TLOCK"/-->
