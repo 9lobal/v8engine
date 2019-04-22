@@ -106,3 +106,24 @@ grep -rE 'TLOCK.*connectID=(21|22).*Regions=Reference14.REFLOCK' | \
 perl -pe 's/^.*connectID=/connectID=/g; s/,SessionID=.*,Regions=/,Regions=/g'
 
 #7 разбор TDEADLOCK - пересечение + контекст
+
+##linux
+#Загрузка за 1, 5, 15 минут
+cat /proc/loadavg
+cat /proc/cpuinfo | grep 'cpu core'
+iostat
+
+#Средняя загрузка за 30 секунд
+vmstat -SM 3 > perfomance_stat
+cat perfomance_stat | tail | awk "{sum +=$13+$14;n+=1}END{print sum/n}"
+
+#vmstat Показатели
+  r - очередь процессора
+  b - очередь диска
+  free - свободная ОЗУ
+  buff - буферная
+  cache - кэш
+  si\so - обмен со своп-файлом
+  bi\bo - обмен с диском
+  us - % процессора пользовательскими процессами (<70)
+  sv - % процессора системный (<35)
