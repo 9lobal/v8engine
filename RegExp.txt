@@ -12,6 +12,20 @@ gawk -F',' '{Dur[$2]+=$1;}END{for (i in Dur) print Dur[i] ":" i}' |
 sort -rnb |
 head -n 5
 
+#то же самое для 8.3.13+ со свойством CpuTime
+cat rphost*/*.log | \
+perl -n -e 'if (/^\d\d:\d\d\.\d+/) {$event =~ s/.\n/<line>/g; print $event."\n"; $event = "";} $event .= $_; END{print $event};' | \
+perl -pe 's/\xef\xbb\xbf//g' | \
+grep -P ",CALL,.*,Context=" | \
+perl -pe 's/<line>//' | \
+perl -pe 's/^\d+:\d+.\d+-//g' | \
+perl -pe 's/,CALL,.*Context/,Context/g' | \
+perl -pe 's/,Interface=.*CpuTime=/===/g' | \
+perl -pe 's/,Context=/===/g' | \
+awk -F'===' '{sum[$2][1]+=$1; sum[$2][2]+=$3; count[$2]+=1;} END {for(i in sum) {printf "%d %d %d %d %s\n",sum[i][1],sum[i][2],sum[i][1]/count[i], count[i],i}}' | \
+sort -rnb | \
+head -n 5
+
 #1 Ищется на ИТС по ключевому слову ТЦВыполнить = 3.19. Демонстрационный пример создания нагрузочного теста
 
 #2 Занятый объем памяти за вызов
