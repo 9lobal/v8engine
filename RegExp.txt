@@ -91,6 +91,11 @@ uniq | \
 sort | \
 sed 's/<line>/ /g' > top.txt
 
+cat rphost*/*.log | \
+perl -pe 's/tt[0-9]+/{TempTable}/g' | \
+perl -pe 's/\w+-\w+-\w+-\w+-\w+/{GUID}/g' | \
+perl -pe 's/p_[0-9]: /d' | \
+
 #5 Скрипт MSSQL
 /****** Скрипт для команды SelectTopNRows из среды SSMS  ******/
 SELECT substring(TextData,1,4000) as Query

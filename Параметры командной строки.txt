@@ -21,3 +21,7 @@
 #Запуск сервера 1с как приложения
 #http://tavalik.ru/agent-servera-1spredpriyatiya-8-ego-parametry-zapuska/
 ragent.exe -debug -port <порт агента:1540> -regport <порт главного менеджера:1541> -range <диапазоны портов рабочих процессов:1560-1591> -d <каталог> -usr <имя> -pwd <пароль>
+"C:\Program Files\1cv8\8.3.13.1690\bin\ragent.exe" -debug -port 2540 -regport 2541 -range 2560:2591 -d F:\srv_info -usr USR1CV83 -pwd parol123
+
+#Создание службы сервера
+sc create "1C:Enterprise 8.3 Server Agent (x86-64) QMC" binpath= """"C:\Program Files\1cv8\8.3.14.1565\bin\ragent.exe""" -srvc -agent -regport 2541 -port 2540 -range 1560:1591 -d"""C:\Program Files\1cv8\srvinfo"""" DisplayName= "Агент сервера 1С:Предприятия 8.3 (x86-64) ЦКК" start= auto
