@@ -1,0 +1,2 @@
+mklink /j "C:\Users\vtrushnikov\AppData\Local\1C" "F:\Users\vtrushnikovs\Local\1C"
+mklink /j "C:\Users\vtrushnikov\AppData\Roaming\1C" "F:\Users\vtrushnikovs\Roaming\1C"
